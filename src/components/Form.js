@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { getInsuranceByYear, getInsuranceByBrand, getInsuranceByPlan } from '../helper';
+import PropTypes from 'prop-types';
 
 
 const Button = styled.button`
@@ -14,7 +16,7 @@ const Button = styled.button`
         background-color: #26C6DA;
         color: #fff;
     }
-`
+`;
 
 const Error = styled.div`
     background-color: red;
@@ -23,9 +25,9 @@ const Error = styled.div`
     width: 100%;
     text-align: center;
     margin-bottom: 2rem;
-`
+`;
 
-const Form = () => {
+const Form = ({ saveSummary, saveSpinner }) => {
 
     // State  for saving all info of form
     const [ info, saveInfo ] = useState({
@@ -60,7 +62,29 @@ const Form = () => {
 
         updateError(false);
 
-        //
+        // Establish a default value for insurance
+        let defaultInsurance = 2000;
+
+        // Get insurance by year
+        defaultInsurance = getInsuranceByYear(parseInt(year), defaultInsurance);
+
+        // Now add the increase by the type of brand
+        defaultInsurance = getInsuranceByBrand(brand, defaultInsurance);
+
+        // Finally add the increase by type of plan
+        defaultInsurance = getInsuranceByPlan(plan, defaultInsurance);
+
+        // The following code is not necesary, it's only for example purposes
+        saveSpinner(true);
+
+        setTimeout(() => {
+            saveSpinner(false);
+
+            saveSummary({
+                quote: defaultInsurance,
+                info
+            });
+        }, 2000);
     }
 
 
@@ -78,9 +102,9 @@ const Form = () => {
                     onChange={updateInfo}
                 >
                     <option value="">-- Select --</option>
-                    <option value="american">American</option>
-                    <option value="european">European</option>
-                    <option value="asian">Asian</option>
+                    <option value="American">American</option>
+                    <option value="European">European</option>
+                    <option value="Asian">Asian</option>
                 </select>
             </div>
 
@@ -111,8 +135,8 @@ const Form = () => {
                     className="form-check-input" 
                     type="radio" 
                     name="plan"
-                    value="basic"
-                    checked={plan === "basic"}
+                    value="Basic"
+                    checked={plan === "Basic"}
                     onChange={updateInfo}
                 />
                 <label className="form-check-label">Basic</label>
@@ -123,8 +147,8 @@ const Form = () => {
                     className="form-check-input" 
                     type="radio" 
                     name="plan"
-                    value="complete"
-                    checked={plan === "complete"}
+                    value="Complete"
+                    checked={plan === "Complete"}
                     onChange={updateInfo}
                 />                
                 <label className="form-check-label">Complete</label>
@@ -138,6 +162,11 @@ const Form = () => {
             </div>
         </form>
      );
-}
+};
+
+Form.propTypes = {
+    saveSummary: PropTypes.func.isRequired,
+    saveSpinner: PropTypes.func.isRequired
+};
  
 export default Form;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 const HeaderContainer = styled.header`
     background-color: #26C6DA;
@@ -20,6 +21,10 @@ const Header = ( {title} ) => {
             <H1Holder>{title}</H1Holder>
         </HeaderContainer>
     );
-}
+};
+
+Header.propTypes = {
+    title: PropTypes.string.isRequired
+};
  
 export default Header;

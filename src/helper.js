@@ -7,11 +7,11 @@ export function getInsuranceByYear(year, insurance) {
 export function getInsuranceByBrand(brand, insurance) {
 
     switch(brand) {
-        case 'european':
+        case 'European':
             return (insurance*1.30).toFixed(2);
-        case 'american':
+        case 'American':
             return (insurance*1.15).toFixed(2);
-        case 'asian':
+        case 'Asian':
             return (insurance*1.05).toFixed(2);
         default:
             return insurance;
@@ -20,9 +20,9 @@ export function getInsuranceByBrand(brand, insurance) {
 
 export function getInsuranceByPlan(plan, insurance) {
     switch(plan) {
-        case 'basic':
+        case 'Basic':
             return (insurance*1.20).toFixed(2);
-        case 'complete':
+        case 'Complete':
             return (insurance*1.5).toFixed(2);
         default:
             return insurance;
