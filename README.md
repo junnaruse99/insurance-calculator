@@ -9,3 +9,5 @@
 
 There is authentication for every field. An animation was added for the 'total amount' part just for learning purposes. A spinner was added as well just for learning purposes. Spinner from https://tobiasahlin.com/spinkit/
 
+Demo:  https://junnaruse99.github.io/insurance-calculator/.
+
